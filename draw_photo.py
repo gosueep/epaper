@@ -1,15 +1,20 @@
 from datetime import datetime
 import requests
 import random
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageEnhance
 from epd7in3f import EPD
 
 
 URL = "https://photos.app.goo.gl/HgmxBfjKhmcMRd2S6"
 # Using the waveshare 7.3in e-paper - https://waveshare.com/7.3inch-e-paper-hat-f.htm
-FRAME_HEIGHT = 480
-FRAME_WIDTH = 800
+# using it vertically
+FRAME_HEIGHT = 800
+FRAME_WIDTH = 480
+# how PIL expects the frame size (width, height)
 FRAME_SIZE=(FRAME_WIDTH, FRAME_HEIGHT)
+
+# TODO - maybe a softer white?
+PADDING_COLOR = "#FFFFFF"
 
 resp = requests.get(URL)
 import re
@@ -35,9 +40,10 @@ filename = f'{timestamp.strftime("%Y-%m-%d_%H:%M:%S")}.jpg'
 with open(filename,'wb') as file:
     file.write(img_data)
 
-PADDING_COLOR = "#FFFFFF"
-# convert to PIL Image and resize
+# convert to PIL Image
 img = Image.open(filename)
+enhancer =ImageEnhance.Color(img)
+img = enhancer.enhance(1.5)
 img = ImageOps.pad(img, size=FRAME_SIZE, centering=(0.5,0.5), color=PADDING_COLOR)
 # img.save("resized"+filename)
 
