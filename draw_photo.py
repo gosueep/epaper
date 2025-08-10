@@ -1,5 +1,6 @@
 from datetime import datetime
 import requests
+import random
 from PIL import Image, ImageOps
 from epd7in3f import EPD
 
@@ -22,10 +23,9 @@ for link in links:
 
 # dedupe
 clean_links = list(set(clean_links))
+chosen_link = random.choice(clean_links)
+full_link = f'https://lh3.googleusercontent.com/pw/{chosen_link}'
 
-for link in clean_links:
-    full_link = f'https://lh3.googleusercontent.com/pw/{link}'
-    
 # download image
 img_data: bytes = requests.get(full_link).content
 
