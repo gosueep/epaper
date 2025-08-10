@@ -1,1 +1,2 @@
-python3 grab_photo.py
+cd /home/pi/epaper
+python3 draw_photo.py
