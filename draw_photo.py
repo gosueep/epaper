@@ -43,7 +43,8 @@ with open(filename,'wb') as file:
 # convert to PIL Image
 img = Image.open(filename)
 enhancer =ImageEnhance.Color(img)
-img = enhancer.enhance(1.5)
+# img = enhancer.enhance(1.5)
+img = img.convert("P", palette=Image.ADAPTIVE, dither=Image.FLOYDSTEINBERG)
 img = ImageOps.pad(img, size=FRAME_SIZE, centering=(0.5,0.5), color=PADDING_COLOR)
 # img.save("resized"+filename)
 
