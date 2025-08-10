@@ -30,15 +30,14 @@
 
 import logging
 # from . import epdconfig
-from epdconfig import RaspberryPi as epdconfig
+from epdconfig import RaspberryPi
+epdconfig = RaspberryPi()
 
 
 
 
 
-import PIL
 from PIL import Image
-import io
 
 # Display resolution
 EPD_WIDTH       = 800
